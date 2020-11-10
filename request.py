@@ -1,21 +1,22 @@
 import requests
 import json
 
-
+url = "http://10.109.246.247"
 # 获得id号的数据
-def getJson(idx):
-    response = requests.get("http://127.0.0.1:7777/getJson?idx=3-1")
-    print(response.text)
+def getJson(idx:str):
+    response = requests.get(url+":5555/getJson?idx="+idx)
+    print(response.json())
+    return response.json()
 
 # 预测
 def predict(data):
     ## headers中添加上content-type这个参数，指定为json格式
     headers = {'Content-Type': 'application/json'}
-    response = requests.post("http://127.0.0.1:7777/predict", headers = headers, data=json.dumps(data))
-    print(response.text)
+    response = requests.post(url+":5555/predict", headers = headers, data=json.dumps(data))
+    print(response.json())
 
 
-getJson('3-1')
+data = getJson('3-650062220093510')
+#可对data进行修改后输入模型
 
-data = {'idx':'3-1','text1':'test'}
 predict(data)
